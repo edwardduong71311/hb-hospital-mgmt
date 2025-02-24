@@ -1,6 +1,5 @@
 package edward.duong.hospital_mgmt;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;

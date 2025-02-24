@@ -29,13 +29,13 @@ import java.util.List;
 @EnableMethodSecurity
 public class SecurityConfig {
     @Value("${app.cors.origin}")
-    private List<String> ALLOWED_ORIGINS;
+    private List<String> allowedOrigins;
 
     @Value("${app.cors.method}")
-    private List<String> ALLOWED_METHODS;
+    private List<String> allowedMethods;
 
     @Value("${app.cors.header}")
-    private List<String> ALLOWED_HEADERS;
+    private List<String> allowedHeaders;
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
@@ -64,9 +64,9 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfig() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(ALLOWED_ORIGINS);
-        config.setAllowedMethods(ALLOWED_METHODS);
-        config.setAllowedHeaders(ALLOWED_HEADERS);
+        config.setAllowedOrigins(allowedOrigins);
+        config.setAllowedMethods(allowedMethods);
+        config.setAllowedHeaders(allowedHeaders);
         config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
