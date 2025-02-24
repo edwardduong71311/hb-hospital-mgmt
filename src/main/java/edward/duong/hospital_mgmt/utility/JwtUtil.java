@@ -14,13 +14,13 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
     @Value("${app.auth.key}")
-    private String SECRET_KEY;
+    private String secretKey;
 
     @Value("${app.auth.exp}")
-    private int EXPIRATION;
+    private int expiration;
 
     private SecretKey getSigningKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
@@ -49,7 +49,7 @@ public class JwtUtil {
         return Jwts.builder()
                 .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + EXPIRATION * 1000L))
+                .expiration(new Date(System.currentTimeMillis() + expiration * 1000L))
                 .signWith(getSigningKey())
                 .compact();
     }

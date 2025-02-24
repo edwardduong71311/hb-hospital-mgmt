@@ -12,7 +12,7 @@ class JwtUtilTest extends BaseUnitTestConfig {
 
     @Test
     @DisplayName("Utility - Create token success")
-    public void createTokenSuccess() {
+    void createTokenSuccess() {
         String userName =  "UserName";
 
         String token = jwtUtil.generateToken(userName);
