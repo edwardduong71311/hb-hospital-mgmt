@@ -1,10 +1,15 @@
 package edward.duong.hospital_mgmt.controller;
 
+import static edward.duong.hospital_mgmt.config.advice.ExceptionAdvice.DEFAULT_ERROR_MESSAGE;
+import static edward.duong.hospital_mgmt.domain.exceptions.ExceptionConstant.*;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import edward.duong.hospital_mgmt.IntegrationTestConfig;
 import edward.duong.hospital_mgmt.controller.models.BaseResponse;
 import edward.duong.hospital_mgmt.controller.models.hospitals.HospitalReq;
 import edward.duong.hospital_mgmt.controller.models.hospitals.HospitalRes;
+import java.util.List;
+import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -14,12 +19,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-
-import java.util.List;
-import java.util.Objects;
-
-import static edward.duong.hospital_mgmt.config.advice.ExceptionAdvice.DEFAULT_ERROR_MESSAGE;
-import static edward.duong.hospital_mgmt.domain.exceptions.ExceptionConstant.*;
 
 @Slf4j
 class HospitalControllerTest extends IntegrationTestConfig {
@@ -39,22 +38,19 @@ class HospitalControllerTest extends IntegrationTestConfig {
     }
 
     private HospitalRes createHospital(HospitalReq hospital) {
-        BaseResponse res = this.restTemplate.postForObject(
-                CREATE_HOSPITAL_URL, hospital, BaseResponse.class);
+        BaseResponse res = this.restTemplate.postForObject(CREATE_HOSPITAL_URL, hospital, BaseResponse.class);
         return objectMapper.convertValue(res.getData(), HospitalRes.class);
     }
 
     private HospitalRes getHospitalById(String id) {
-        BaseResponse res = this.restTemplate.getForObject(
-                String.format(GET_HOSPITAL_BY_ID_URL, id),
-                BaseResponse.class);
+        BaseResponse res =
+                this.restTemplate.getForObject(String.format(GET_HOSPITAL_BY_ID_URL, id), BaseResponse.class);
         return objectMapper.convertValue(res.getData(), HospitalRes.class);
     }
 
     private List<HospitalRes> getHospitals(Integer page, Integer size) {
-        BaseResponse res = this.restTemplate.getForObject(
-                String.format(GET_HOSPITAL_URL, page, size),
-                BaseResponse.class);
+        BaseResponse res =
+                this.restTemplate.getForObject(String.format(GET_HOSPITAL_URL, page, size), BaseResponse.class);
         return objectMapper.convertValue(res.getData(), new TypeReference<List<HospitalRes>>() {});
     }
 
@@ -147,12 +143,10 @@ class HospitalControllerTest extends IntegrationTestConfig {
     void updateHospital_Without_Id() {
         HospitalReq request = createHospitalRequest();
         ResponseEntity<BaseResponse> res = this.restTemplate.exchange(
-                CREATE_HOSPITAL_URL,
-                HttpMethod.PUT,
-                new HttpEntity<>(request),
-                BaseResponse.class);
+                CREATE_HOSPITAL_URL, HttpMethod.PUT, new HttpEntity<>(request), BaseResponse.class);
 
-        Assertions.assertEquals(REQUIRE_HOSPITAL_ID, Objects.requireNonNull(res.getBody()).getError());
+        Assertions.assertEquals(
+                REQUIRE_HOSPITAL_ID, Objects.requireNonNull(res.getBody()).getError());
     }
 
     @Test
@@ -162,12 +156,10 @@ class HospitalControllerTest extends IntegrationTestConfig {
         request.setId("999999999");
 
         ResponseEntity<BaseResponse> res = this.restTemplate.exchange(
-                CREATE_HOSPITAL_URL,
-                HttpMethod.PUT,
-                new HttpEntity<>(request),
-                BaseResponse.class);
+                CREATE_HOSPITAL_URL, HttpMethod.PUT, new HttpEntity<>(request), BaseResponse.class);
 
-        Assertions.assertEquals(NOTFOUND_HOSPITAL, Objects.requireNonNull(res.getBody()).getError());
+        Assertions.assertEquals(
+                NOTFOUND_HOSPITAL, Objects.requireNonNull(res.getBody()).getError());
     }
 
     @Test
@@ -186,10 +178,13 @@ class HospitalControllerTest extends IntegrationTestConfig {
         Assertions.assertNotNull(hospitals);
         Assertions.assertEquals(2, hospitals.size());
 
-        Assertions.assertNotEquals(hospitals.getFirst().getId(), nextHospitals.getFirst().getId());
-        Assertions.assertNotEquals(hospitals.getFirst().getId(), nextHospitals.getLast().getId());
-        Assertions.assertNotEquals(hospitals.getLast().getId(), nextHospitals.getFirst().getId());
-        Assertions.assertNotEquals(hospitals.getLast().getId(), nextHospitals.getLast().getId());
+        Assertions.assertNotEquals(
+                hospitals.getFirst().getId(), nextHospitals.getFirst().getId());
+        Assertions.assertNotEquals(
+                hospitals.getFirst().getId(), nextHospitals.getLast().getId());
+        Assertions.assertNotEquals(
+                hospitals.getLast().getId(), nextHospitals.getFirst().getId());
+        Assertions.assertNotEquals(
+                hospitals.getLast().getId(), nextHospitals.getLast().getId());
     }
-
 }

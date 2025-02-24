@@ -17,9 +17,8 @@ class SecurityTest extends BaseWebTestConfig {
     @Test
     @DisplayName("Security - Forbidden if does not have token")
     void getForbidden() {
-        ResponseEntity<BaseResponse> res = this.restTemplate.getForEntity(
-                String.format("/hospitals?page=%d&size=%d", 0, 10),
-                BaseResponse.class);
+        ResponseEntity<BaseResponse> res =
+                this.restTemplate.getForEntity(String.format("/hospitals?page=%d&size=%d", 0, 10), BaseResponse.class);
 
         Assertions.assertEquals(HttpStatus.FORBIDDEN, res.getStatusCode());
     }

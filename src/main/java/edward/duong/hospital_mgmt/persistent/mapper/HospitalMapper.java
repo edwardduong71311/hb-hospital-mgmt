@@ -4,14 +4,13 @@ import edward.duong.hospital_mgmt.domain.models.Hospital;
 import edward.duong.hospital_mgmt.domain.models.Location;
 import edward.duong.hospital_mgmt.persistent.mongo.items.HospitalDocument;
 import edward.duong.hospital_mgmt.persistent.postgre.entity.HospitalEntity;
+import java.util.List;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-
-import java.util.List;
 
 @Mapper
 public interface HospitalMapper {
@@ -40,6 +39,7 @@ public interface HospitalMapper {
     HospitalEntity toUpdateEntity(Hospital a);
 
     List<Hospital> documentToModels(List<HospitalDocument> employees);
+
     List<Hospital> entityToModels(List<HospitalEntity> employees);
 
     default Point map(Location location) {
@@ -55,9 +55,6 @@ public interface HospitalMapper {
             return null;
         }
 
-        return Location.builder()
-                .longitude(point.getX())
-                .latitude(point.getY())
-                .build();
+        return Location.builder().longitude(point.getX()).latitude(point.getY()).build();
     }
 }

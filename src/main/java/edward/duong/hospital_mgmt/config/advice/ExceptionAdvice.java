@@ -15,16 +15,14 @@ public class ExceptionAdvice {
     @ExceptionHandler(value = {RuntimeException.class})
     public ResponseEntity<BaseResponse> handleRuntimeException(RuntimeException exception) {
         log.error(exception.getMessage(), exception);
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(BaseResponse.builder().error(DEFAULT_ERROR_MESSAGE).build());
     }
 
     @ExceptionHandler(value = {IllegalArgumentException.class})
     public ResponseEntity<BaseResponse> handleIllegalArgumentException(IllegalArgumentException exception) {
         log.error(exception.getMessage(), exception);
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(BaseResponse.builder().error(exception.getMessage()).build());
     }
 }

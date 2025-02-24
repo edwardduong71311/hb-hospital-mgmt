@@ -5,10 +5,9 @@ import edward.duong.hospital_mgmt.controller.models.hospitals.HospitalReq;
 import edward.duong.hospital_mgmt.controller.models.hospitals.HospitalRes;
 import edward.duong.hospital_mgmt.domain.models.Pagination;
 import edward.duong.hospital_mgmt.service.HospitalService;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/hospitals")
@@ -31,8 +30,7 @@ public class HospitalController {
         size = size < 0 ? 10 : size;
 
         return HospitalMapper.INSTANCE.toResponseList(hospitalService.getHospital(
-                Pagination.builder().page(page).size(size).build()
-        ));
+                Pagination.builder().page(page).size(size).build()));
     }
 
     @PostMapping
@@ -44,7 +42,6 @@ public class HospitalController {
     @PutMapping
     public HospitalRes updateHospital(@RequestBody HospitalReq hospital) {
         return HospitalMapper.INSTANCE.toResponse(
-                hospitalService.updateHospital(HospitalMapper.INSTANCE.toModel(hospital))
-        );
+                hospitalService.updateHospital(HospitalMapper.INSTANCE.toModel(hospital)));
     }
 }

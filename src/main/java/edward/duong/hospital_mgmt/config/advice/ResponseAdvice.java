@@ -25,10 +25,9 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
             Class selectedConverterType,
             ServerHttpRequest request,
             ServerHttpResponse response) {
-        if (returnType.getContainingClass().isAnnotationPresent(RestController.class) &&
-                (!(body instanceof ErrorResponse)) &&
-                (!(body instanceof BaseResponse))
-        ) {
+        if (returnType.getContainingClass().isAnnotationPresent(RestController.class)
+                && (!(body instanceof ErrorResponse))
+                && (!(body instanceof BaseResponse))) {
             return BaseResponse.builder().data(body).build();
         }
         return body;

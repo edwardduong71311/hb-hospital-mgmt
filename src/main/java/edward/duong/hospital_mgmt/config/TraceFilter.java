@@ -7,11 +7,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.stereotype.Component;
-import org.springframework.web.filter.GenericFilterBean;
-
 import java.io.IOException;
 import java.util.Objects;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.GenericFilterBean;
 
 @Component
 public class TraceFilter extends GenericFilterBean {
@@ -22,11 +21,12 @@ public class TraceFilter extends GenericFilterBean {
     }
 
     @Override
-    public void doFilter(
-            ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
         Span currentSpan = this.tracer.currentSpan();
         if (Objects.nonNull(currentSpan)) {
-            ((HttpServletResponse) response).addHeader("trace-id", currentSpan.context().traceIdString());
+            ((HttpServletResponse) response)
+                    .addHeader("trace-id", currentSpan.context().traceIdString());
         }
 
         chain.doFilter(request, response);

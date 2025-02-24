@@ -9,19 +9,19 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
 @Testcontainers
-@ContextConfiguration(classes = { DisableSecurityConfig.class })
+@ContextConfiguration(classes = {DisableSecurityConfig.class})
 public abstract class IntegrationTestConfig extends BaseWebTestConfig {
     static MongoDBContainer mongo;
     static PostgreSQLContainer<?> postgres;
+
     static {
         String profile = System.getProperty("spring.profiles.active");
         if ("mongo".equals(profile)) {
             mongo = new MongoDBContainer("mongo:8.0");
         }
         if ("postgres".equals(profile)) {
-            postgres = new PostgreSQLContainer<>(DockerImageName.parse(
-                    "postgis/postgis:17-3.5")
-                    .asCompatibleSubstituteFor("postgres"));
+            postgres = new PostgreSQLContainer<>(
+                    DockerImageName.parse("postgis/postgis:17-3.5").asCompatibleSubstituteFor("postgres"));
         }
     }
 

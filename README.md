@@ -1,17 +1,42 @@
-# Read Me First
+# Spring Boot Project
 
-# Getting Started
+## Read Me First
 
-### Reference Documentation
+Welcome to the Spring Boot Project! This repository contains a Spring Boot application with configurations for:
 
-### Guides
+- **Code formatting** with **Spotless**.
+- **Running tests** using different Spring profiles (`mongo` and `postgres`).
+- **Generating code coverage reports** with **Jacoco**.
+
+## Getting Started
+
+To get this project up and running locally, follow the steps below.
+
+### Prerequisites
+
+Before starting, make sure you have the following installed:
+
+- **Java 21** or newer
+- **Maven 3.x**
+- **Git**
+
+### Format Code
+```bash
+    mvn spotless:check # Throw error when fail
+    mvn spotless:apply
+```
 
 ### Test
-mvn test "-Dspring.profiles.active=mongo"
-mvn test "-Dspring.profiles.active=postgres"
+```bash
+    mvn test "-Dspring.profiles.active=mongo"
+    mvn test "-Dspring.profiles.active=postgres"
+```
 
 ### Generate Report
-mvn clean
-mvn test "-Dspring.profiles.active=mongo"
-mvn test "-Dspring.profiles.active=postgres"
-mvn jacoco:report
+```bash
+    mvn clean
+    mvn test "-Dspring.profiles.active=mongo"
+    mvn test "-Dspring.profiles.active=postgres"
+    mvn verify # Throw when coverage does not meet expectation
+    mvn jacoco:report
+```

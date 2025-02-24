@@ -1,14 +1,13 @@
 package edward.duong.hospital_mgmt.persistent.postgre.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,11 +23,16 @@ public class AppointmentEntity {
     private String status;
     private LocalTime fromTime;
     private LocalTime toTime;
+
     @CreatedDate
     private LocalDateTime createdAt;
+
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
     @OneToOne
     private SpecialistEntity specialist;
+
+    @OneToOne
+    private ScheduleEntity schedule;
 }

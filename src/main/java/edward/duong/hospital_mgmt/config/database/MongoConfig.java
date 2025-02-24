@@ -11,10 +11,10 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @Configuration
 @ConditionalOnProperty(name = "app.feature.database", havingValue = "mongo")
 @EnableMongoRepositories(basePackages = "edward.duong.hospital_mgmt.persistent.mongo")
-@ImportAutoConfiguration(exclude = {
-        DataSourceAutoConfiguration.class,
-        DataSourceTransactionManagerAutoConfiguration.class,
-        HibernateJpaAutoConfiguration.class
-})
-public class MongoConfig {
-}
+@ImportAutoConfiguration(
+        exclude = {
+            DataSourceAutoConfiguration.class,
+            DataSourceTransactionManagerAutoConfiguration.class,
+            HibernateJpaAutoConfiguration.class
+        })
+public class MongoConfig {}

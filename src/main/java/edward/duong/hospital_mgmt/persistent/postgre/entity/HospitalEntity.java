@@ -1,15 +1,14 @@
 package edward.duong.hospital_mgmt.persistent.postgre.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.locationtech.jts.geom.Point;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,10 +23,13 @@ public class HospitalEntity {
     private String status;
     private String name;
     private String telephone;
+
     @Column(columnDefinition = "geometry(Point, 4326)")
     private Point location;
+
     @CreatedDate
     private LocalDateTime createdAt;
+
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
@@ -35,7 +37,9 @@ public class HospitalEntity {
     @JoinTable(
             name = "hospital_specialist",
             joinColumns = @JoinColumn(name = "hospital"),
-            inverseJoinColumns = @JoinColumn(name = "specialist")
-    )
-    private List<SpecialtyEntity> specialties;
+            inverseJoinColumns = @JoinColumn(name = "specialist"))
+    private List<SpecialistEntity> specialists;
+
+    @OneToMany
+    private List<ScheduleEntity> schedules;
 }
