@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class HospitalDocument {
     @Id
     private String id;
+
     private String name;
     private LocationDocument location;
 }

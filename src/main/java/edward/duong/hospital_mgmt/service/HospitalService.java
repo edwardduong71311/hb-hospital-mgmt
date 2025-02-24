@@ -3,10 +3,9 @@ package edward.duong.hospital_mgmt.service;
 import edward.duong.hospital_mgmt.domain.input_ports.HospitalUseCase;
 import edward.duong.hospital_mgmt.domain.models.Hospital;
 import edward.duong.hospital_mgmt.domain.models.Pagination;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @Slf4j

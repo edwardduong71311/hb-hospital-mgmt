@@ -6,5 +6,4 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 @ConditionalOnBean({MongoConfig.class})
-public interface MongoHospitalRepo extends MongoRepository<HospitalDocument, String> {
-}
+public interface MongoHospitalRepo extends MongoRepository<HospitalDocument, String> {}

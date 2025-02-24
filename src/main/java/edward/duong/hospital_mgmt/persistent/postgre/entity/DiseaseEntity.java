@@ -1,14 +1,13 @@
 package edward.duong.hospital_mgmt.persistent.postgre.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,8 +23,10 @@ public class DiseaseEntity {
     private String status;
     private String symptom;
     private String treatment;
+
     @CreatedDate
     private LocalDateTime createdAt;
+
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
@@ -33,7 +34,6 @@ public class DiseaseEntity {
     @JoinTable(
             name = "disease_specialty",
             joinColumns = @JoinColumn(name = "disease"),
-            inverseJoinColumns = @JoinColumn(name = "specialty")
-    )
+            inverseJoinColumns = @JoinColumn(name = "specialty"))
     private List<SpecialtyEntity> specialties;
 }

@@ -9,6 +9,9 @@ import edward.duong.hospital_mgmt.persistent.mapper.HospitalMapper;
 import edward.duong.hospital_mgmt.persistent.mongo.MongoHospitalRepo;
 import edward.duong.hospital_mgmt.persistent.mongo.items.HospitalDocument;
 import io.micrometer.common.util.StringUtils;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,10 +19,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 @Repository
 @ConditionalOnBean({MongoConfig.class})
@@ -60,8 +59,10 @@ public class MongoHospitalPersistent implements HospitalPersistent {
                 criteriaList.add(Criteria.where("name").is(criteria.getName()));
             }
             if (Objects.nonNull(criteria.getLocation())) {
-                criteriaList.add(Criteria.where("location.longitude").is(criteria.getLocation().getLongitude()));
-                criteriaList.add(Criteria.where("location.latitude").is(criteria.getLocation().getLatitude()));
+                criteriaList.add(Criteria.where("location.longitude")
+                        .is(criteria.getLocation().getLongitude()));
+                criteriaList.add(Criteria.where("location.latitude")
+                        .is(criteria.getLocation().getLatitude()));
             }
             filter.andOperator(criteriaList);
         }

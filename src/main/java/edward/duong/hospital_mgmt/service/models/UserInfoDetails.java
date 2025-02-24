@@ -1,13 +1,12 @@
 package edward.duong.hospital_mgmt.service.models;
 
-import lombok.Data;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
 public class UserInfoDetails implements UserDetails {
@@ -18,10 +17,8 @@ public class UserInfoDetails implements UserDetails {
     public UserInfoDetails(UserInfo userInfo) {
         this.email = userInfo.getEmail();
         this.name = userInfo.getName();
-        this.authorities = userInfo.getRoles()
-                .stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+        this.authorities =
+                userInfo.getRoles().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
     @Override

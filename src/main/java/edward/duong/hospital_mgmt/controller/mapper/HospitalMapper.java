@@ -3,11 +3,10 @@ package edward.duong.hospital_mgmt.controller.mapper;
 import edward.duong.hospital_mgmt.controller.models.hospitals.HospitalReq;
 import edward.duong.hospital_mgmt.controller.models.hospitals.HospitalRes;
 import edward.duong.hospital_mgmt.domain.models.Hospital;
+import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-
-import java.util.List;
 
 @Mapper
 public interface HospitalMapper {

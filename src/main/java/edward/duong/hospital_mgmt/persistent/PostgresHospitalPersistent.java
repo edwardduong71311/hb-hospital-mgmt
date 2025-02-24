@@ -15,16 +15,15 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
 
 @Slf4j
 @Repository
@@ -40,9 +39,8 @@ public class PostgresHospitalPersistent implements HospitalPersistent {
 
     @Override
     public List<Hospital> getHospitals(Pagination pagination) {
-        Page<HospitalEntity> hospitals = repo.findAll(
-                Pageable.ofSize(pagination.getSize())
-                        .withPage(pagination.getPage()));
+        Page<HospitalEntity> hospitals =
+                repo.findAll(Pageable.ofSize(pagination.getSize()).withPage(pagination.getPage()));
         return HospitalMapper.INSTANCE.entityToModels(hospitals.getContent());
     }
 
@@ -85,10 +83,9 @@ public class PostgresHospitalPersistent implements HospitalPersistent {
                                     Object.class,
                                     cb.literal(criteria.getLocation().getLongitude()),
                                     cb.literal(criteria.getLocation().getLatitude())),
-                            cb.literal(4326)
-                    ),
+                            cb.literal(4326)),
                     cb.literal(criteria.getRadius() * 1000) // Convert km to meters
-            )));
+                    )));
         }
 
         query.where(predicates.toArray(new Predicate[0]));

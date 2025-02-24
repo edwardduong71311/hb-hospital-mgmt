@@ -6,5 +6,4 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @ConditionalOnBean({PostgresConfig.class})
-public interface PostgresHospitalRepo extends JpaRepository<HospitalEntity, Long> {
-}
+public interface PostgresHospitalRepo extends JpaRepository<HospitalEntity, Long> {}

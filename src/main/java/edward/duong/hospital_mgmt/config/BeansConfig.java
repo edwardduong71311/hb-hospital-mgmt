@@ -24,5 +24,4 @@ public class BeansConfig {
     public HospitalUseCase hospitalUseCasePostgres(final PostgresHospitalPersistent persistent) {
         return new DefaultHospital(persistent);
     }
-
 }
