@@ -1,0 +1,34 @@
+package edward.duong.hospital_mgmt.service;
+
+import edward.duong.hospital_mgmt.domain.input_ports.SpecialistUseCase;
+import edward.duong.hospital_mgmt.domain.models.Pagination;
+import edward.duong.hospital_mgmt.domain.models.Specialist;
+import java.util.List;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+@Slf4j
+@Service
+public class SpecialistService {
+    private final SpecialistUseCase specialistUseCase;
+
+    public SpecialistService(SpecialistUseCase specialistUseCase) {
+        this.specialistUseCase = specialistUseCase;
+    }
+
+    public List<Specialist> getSpecialists(Pagination pagination) {
+        return specialistUseCase.getSpecialists(pagination);
+    }
+
+    public Specialist createSpecialist(Specialist specialist) {
+        return specialistUseCase.createSpecialist(specialist);
+    }
+
+    public Specialist updateSpecialist(Specialist specialist) {
+        return specialistUseCase.updateSpecialist(specialist);
+    }
+
+    public void deleteSpecialist(String id) {
+        specialistUseCase.deleteSpecialist(id);
+    }
+}

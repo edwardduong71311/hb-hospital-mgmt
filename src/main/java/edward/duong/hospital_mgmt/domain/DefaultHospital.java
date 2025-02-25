@@ -5,6 +5,7 @@ import static edward.duong.hospital_mgmt.domain.exceptions.ExceptionConstant.*;
 import edward.duong.hospital_mgmt.domain.input_ports.HospitalUseCase;
 import edward.duong.hospital_mgmt.domain.models.Hospital;
 import edward.duong.hospital_mgmt.domain.models.HospitalCriteria;
+import edward.duong.hospital_mgmt.domain.models.HospitalStatus;
 import edward.duong.hospital_mgmt.domain.models.Pagination;
 import edward.duong.hospital_mgmt.domain.output_ports.HospitalPersistent;
 import java.util.List;
@@ -53,6 +54,8 @@ public class DefaultHospital implements HospitalUseCase {
         if (Objects.nonNull(saved)) {
             throw new IllegalArgumentException(DUPLICATE_HOSPITAL);
         }
+
+        hospital.setStatus(HospitalStatus.ACTIVE.name());
         return hospitalPersistent.createHospital(hospital);
     }
 
@@ -74,6 +77,13 @@ public class DefaultHospital implements HospitalUseCase {
 
     @Override
     public void deleteHospital(String id) {
-        hospitalPersistent.deleteHospital(id);
+        Hospital saved = hospitalPersistent.getHospitalByCriteria(
+                HospitalCriteria.builder().id(id).build());
+        if (Objects.isNull(saved)) {
+            throw new IllegalArgumentException(NOTFOUND_HOSPITAL);
+        }
+
+        saved.setStatus(HospitalStatus.INACTIVE.name());
+        hospitalPersistent.updateHospital(saved);
     }
 }

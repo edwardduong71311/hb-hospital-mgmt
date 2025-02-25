@@ -17,7 +17,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 public class AppointmentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private String patient;
     private String status;
@@ -29,10 +29,4 @@ public class AppointmentEntity {
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
-
-    @OneToOne
-    private SpecialistEntity specialist;
-
-    @OneToOne
-    private ScheduleEntity schedule;
 }

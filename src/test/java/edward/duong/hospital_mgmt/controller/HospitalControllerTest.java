@@ -6,8 +6,9 @@ import static edward.duong.hospital_mgmt.domain.exceptions.ExceptionConstant.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import edward.duong.hospital_mgmt.IntegrationTestConfig;
 import edward.duong.hospital_mgmt.controller.models.BaseResponse;
-import edward.duong.hospital_mgmt.controller.models.hospitals.HospitalReq;
-import edward.duong.hospital_mgmt.controller.models.hospitals.HospitalRes;
+import edward.duong.hospital_mgmt.controller.models.hospital.HospitalReq;
+import edward.duong.hospital_mgmt.controller.models.hospital.HospitalRes;
+import edward.duong.hospital_mgmt.domain.models.HospitalStatus;
 import java.util.List;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @Slf4j
@@ -63,6 +65,7 @@ class HospitalControllerTest extends IntegrationTestConfig {
 
         Assertions.assertNotNull(saved.getId());
         Assertions.assertEquals(request.getName(), saved.getName());
+        Assertions.assertEquals(HospitalStatus.ACTIVE.name(), saved.getStatus());
         Assertions.assertEquals(request.getLatitude(), saved.getLatitude());
         Assertions.assertEquals(request.getLongitude(), saved.getLongitude());
     }
@@ -186,5 +189,31 @@ class HospitalControllerTest extends IntegrationTestConfig {
                 hospitals.getLast().getId(), nextHospitals.getFirst().getId());
         Assertions.assertNotEquals(
                 hospitals.getLast().getId(), nextHospitals.getLast().getId());
+    }
+
+    @Test
+    @DisplayName("Controller - Delete hospital success")
+    void deleteHospital_Success() {
+        HospitalReq request = createHospitalRequest();
+        HospitalRes hospital = createHospital(request);
+
+        ResponseEntity<String> res = this.restTemplate.exchange(
+                String.format(GET_HOSPITAL_BY_ID_URL, hospital.getId()), HttpMethod.DELETE, null, String.class);
+
+        Assertions.assertEquals(HttpStatus.OK, res.getStatusCode());
+
+        HospitalRes saved = getHospitalById(hospital.getId());
+        Assertions.assertNotNull(saved.getId());
+        Assertions.assertEquals(HospitalStatus.INACTIVE.name(), saved.getStatus());
+    }
+
+    @Test
+    @DisplayName("Controller - Delete hospital with invalid id")
+    void deleteHospital_With_InvalidId() {
+        ResponseEntity<BaseResponse> res = this.restTemplate.exchange(
+                String.format(GET_HOSPITAL_BY_ID_URL, "999999999"), HttpMethod.DELETE, null, BaseResponse.class);
+
+        Assertions.assertEquals(
+                NOTFOUND_HOSPITAL, Objects.requireNonNull(res.getBody()).getError());
     }
 }

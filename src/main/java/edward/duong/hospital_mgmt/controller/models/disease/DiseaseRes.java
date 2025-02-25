@@ -1,4 +1,4 @@
-package edward.duong.hospital_mgmt.controller.models.hospitals;
+package edward.duong.hospital_mgmt.controller.models.disease;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class HospitalRes {
+public class DiseaseRes {
     private String id;
     private String name;
-    private Double longitude;
-    private Double latitude;
+    private String status;
+    private String symptom;
+    private String treatment;
 }

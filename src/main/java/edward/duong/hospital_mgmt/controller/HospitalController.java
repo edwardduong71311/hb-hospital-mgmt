@@ -1,8 +1,8 @@
 package edward.duong.hospital_mgmt.controller;
 
 import edward.duong.hospital_mgmt.controller.mapper.HospitalMapper;
-import edward.duong.hospital_mgmt.controller.models.hospitals.HospitalReq;
-import edward.duong.hospital_mgmt.controller.models.hospitals.HospitalRes;
+import edward.duong.hospital_mgmt.controller.models.hospital.HospitalReq;
+import edward.duong.hospital_mgmt.controller.models.hospital.HospitalRes;
 import edward.duong.hospital_mgmt.domain.models.Pagination;
 import edward.duong.hospital_mgmt.service.HospitalService;
 import java.util.List;
@@ -43,5 +43,10 @@ public class HospitalController {
     public HospitalRes updateHospital(@RequestBody HospitalReq hospital) {
         return HospitalMapper.INSTANCE.toResponse(
                 hospitalService.updateHospital(HospitalMapper.INSTANCE.toModel(hospital)));
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteHospital(@PathVariable String id) {
+        hospitalService.deleteHospital(id);
     }
 }
