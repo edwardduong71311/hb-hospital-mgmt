@@ -25,7 +25,6 @@ public class HospitalService {
     }
 
     public Hospital createHospital(Hospital hospital) {
-        log.info("Hospital creation: {}", hospital);
         return hospitalUseCase.createHospital(hospital);
     }
 

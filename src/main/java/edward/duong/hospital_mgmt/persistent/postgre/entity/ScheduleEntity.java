@@ -17,7 +17,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 public class ScheduleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private LocalDateTime date;
     private LocalTime fromTime;
@@ -29,7 +29,4 @@ public class ScheduleEntity {
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
-
-    @OneToOne
-    private AppointmentEntity appointment;
 }

@@ -117,9 +117,4 @@ public class PostgresHospitalPersistent implements HospitalPersistent {
         HospitalEntity saved = repo.save(HospitalMapper.INSTANCE.toUpdateEntity(hospital));
         return HospitalMapper.INSTANCE.toModel(saved);
     }
-
-    @Override
-    public void deleteHospital(String id) {
-        repo.deleteById(Long.parseLong(id));
-    }
 }

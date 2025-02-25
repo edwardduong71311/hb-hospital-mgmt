@@ -18,29 +18,44 @@ public interface HospitalMapper {
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "name", target = "name")
+    @Mapping(source = "status", target = "status")
+    @Mapping(source = "address", target = "address")
+    @Mapping(source = "telephone", target = "telephone")
     @Mapping(source = "location", target = "location")
     Hospital toModel(HospitalDocument a);
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "name", target = "name")
+    @Mapping(source = "status", target = "status")
+    @Mapping(source = "address", target = "address")
+    @Mapping(source = "telephone", target = "telephone")
     @Mapping(source = "location", target = "location")
     HospitalDocument toDocument(Hospital a);
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "name", target = "name")
+    @Mapping(source = "status", target = "status")
+    @Mapping(source = "address", target = "address")
+    @Mapping(source = "telephone", target = "telephone")
     Hospital toModel(HospitalEntity a);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "name", target = "name")
+    @Mapping(source = "status", target = "status")
+    @Mapping(source = "address", target = "address")
+    @Mapping(source = "telephone", target = "telephone")
     HospitalEntity toSaveEntity(Hospital a);
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "name", target = "name")
+    @Mapping(source = "status", target = "status")
+    @Mapping(source = "address", target = "address")
+    @Mapping(source = "telephone", target = "telephone")
     HospitalEntity toUpdateEntity(Hospital a);
 
-    List<Hospital> documentToModels(List<HospitalDocument> employees);
+    List<Hospital> documentToModels(List<HospitalDocument> a);
 
-    List<Hospital> entityToModels(List<HospitalEntity> employees);
+    List<Hospital> entityToModels(List<HospitalEntity> a);
 
     default Point map(Location location) {
         if (location == null) {

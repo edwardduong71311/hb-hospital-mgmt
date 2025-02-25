@@ -16,9 +16,10 @@ import org.springframework.data.annotation.LastModifiedDate;
 public class SpecialtyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private String name;
+    private String status;
     private String description;
 
     @CreatedDate

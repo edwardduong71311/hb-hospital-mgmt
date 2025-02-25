@@ -8,5 +8,8 @@ import lombok.Data;
 public class Hospital {
     private String id;
     private String name;
+    private String status;
+    private String address;
+    private String telephone;
     private Location location;
 }

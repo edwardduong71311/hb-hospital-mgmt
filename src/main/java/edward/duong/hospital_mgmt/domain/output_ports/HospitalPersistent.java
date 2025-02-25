@@ -15,6 +15,4 @@ public interface HospitalPersistent {
     Hospital createHospital(Hospital hospital);
 
     Hospital updateHospital(Hospital hospital);
-
-    void deleteHospital(String id);
 }

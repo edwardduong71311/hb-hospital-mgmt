@@ -1,4 +1,4 @@
-package edward.duong.hospital_mgmt.controller.models.hospitals;
+package edward.duong.hospital_mgmt.controller.models.hospital;
 
 import lombok.Builder;
 import lombok.Data;
@@ -8,6 +8,9 @@ import lombok.Data;
 public class HospitalReq {
     private String id;
     private String name;
+    private String status;
+    private String address;
+    private String telephone;
     private Double longitude;
     private Double latitude;
 }

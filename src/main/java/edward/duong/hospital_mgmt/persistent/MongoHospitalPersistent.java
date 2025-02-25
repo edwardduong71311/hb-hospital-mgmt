@@ -91,9 +91,4 @@ public class MongoHospitalPersistent implements HospitalPersistent {
         HospitalDocument saved = repo.save(HospitalMapper.INSTANCE.toDocument(hospital));
         return HospitalMapper.INSTANCE.toModel(saved);
     }
-
-    @Override
-    public void deleteHospital(String id) {
-        repo.deleteById(id);
-    }
 }

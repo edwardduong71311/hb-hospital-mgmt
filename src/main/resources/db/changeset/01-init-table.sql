@@ -13,6 +13,7 @@ CREATE TABLE specialty (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
     description TEXT,
+    status VARCHAR(255),
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );
