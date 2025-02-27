@@ -1,5 +1,7 @@
 package edward.duong.hospital_mgmt.controller.models.disease;
 
+import edward.duong.hospital_mgmt.controller.models.specialty.SpecialtyReq;
+import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,4 +13,5 @@ public class DiseaseReq {
     private String status;
     private String symptom;
     private String treatment;
+    private List<SpecialtyReq> specialties;
 }

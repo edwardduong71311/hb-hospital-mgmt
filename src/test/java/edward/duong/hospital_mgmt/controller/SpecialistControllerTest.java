@@ -3,50 +3,25 @@ package edward.duong.hospital_mgmt.controller;
 import static edward.duong.hospital_mgmt.config.advice.ExceptionAdvice.DEFAULT_ERROR_MESSAGE;
 import static edward.duong.hospital_mgmt.domain.exceptions.ExceptionConstant.*;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import edward.duong.hospital_mgmt.IntegrationTestConfig;
+import edward.duong.hospital_mgmt.BaseWebTestConfig;
 import edward.duong.hospital_mgmt.controller.models.BaseResponse;
 import edward.duong.hospital_mgmt.controller.models.specialist.SpecialistReq;
 import edward.duong.hospital_mgmt.controller.models.specialist.SpecialistRes;
+import edward.duong.hospital_mgmt.controller.models.specialty.SpecialtyReq;
+import edward.duong.hospital_mgmt.controller.models.specialty.SpecialtyRes;
 import java.util.List;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @Slf4j
-class SpecialistControllerTest extends IntegrationTestConfig {
-    @Autowired
-    private TestRestTemplate restTemplate;
-
-    private static final String CREATE_SPECIALIST_URL = "/specialists";
-    private static final String GET_SPECIALIST_URL = "/specialists?page=%d&size=%d";
-    private static final String SPECIALIST_BY_ID_URL = "/specialists/%s";
-
-    private SpecialistReq createSpecialistRequest() {
-        return SpecialistReq.builder()
-                .name("Test specialist " + random.nextDouble())
-                .build();
-    }
-
-    private SpecialistRes createSpecialist(SpecialistReq req) {
-        BaseResponse res = this.restTemplate.postForObject(CREATE_SPECIALIST_URL, req, BaseResponse.class);
-        return objectMapper.convertValue(res.getData(), SpecialistRes.class);
-    }
-
-    private List<SpecialistRes> getSpecialties(Integer page, Integer size) {
-        BaseResponse res =
-                this.restTemplate.getForObject(String.format(GET_SPECIALIST_URL, page, size), BaseResponse.class);
-        return objectMapper.convertValue(res.getData(), new TypeReference<List<SpecialistRes>>() {});
-    }
-
+class SpecialistControllerTest extends BaseWebTestConfig {
     @Test
     @DisplayName("Controller - Create specialist success")
     void createSpecialist_Success() {
@@ -58,9 +33,43 @@ class SpecialistControllerTest extends IntegrationTestConfig {
     }
 
     @Test
+    @DisplayName("Controller - Create specialist with specialties success")
+    void createSpecialist_With_Specialties_Success() {
+        SpecialistReq request = createSpecialistRequest();
+
+        SpecialtyReq s1 = createSpecialtyRequest();
+        SpecialtyReq s2 = createSpecialtyRequest();
+        SpecialtyRes spec1 = createSpecialty(s1);
+        SpecialtyRes spec2 = createSpecialty(s2);
+
+        s1.setId(spec1.getId());
+        s2.setId(spec2.getId());
+        request.setSpecialties(List.of(s1, s2));
+
+        SpecialistRes specialist = createSpecialist(request);
+
+        Assertions.assertNotNull(specialist.getId());
+        Assertions.assertEquals(request.getName(), specialist.getName());
+        Assertions.assertEquals(2, specialist.getSpecialties().size());
+        Assertions.assertTrue(List.of(spec1.getId(), spec2.getId())
+                .contains(specialist.getSpecialties().getFirst().getId()));
+        Assertions.assertTrue(List.of(spec1.getId(), spec2.getId())
+                .contains(specialist.getSpecialties().getLast().getId()));
+
+        // Update again to empty
+        request.setId(specialist.getId());
+        request.setSpecialties(null);
+        ResponseEntity<BaseResponse> updated = this.restTemplate.exchange(
+                POST_SPECIALIST_URL, HttpMethod.PUT, new HttpEntity<>(request), BaseResponse.class);
+        SpecialistRes updatedSpecialist = objectMapper.convertValue(
+                Objects.requireNonNull(updated.getBody()).getData(), SpecialistRes.class);
+        Assertions.assertEquals(0, updatedSpecialist.getSpecialties().size());
+    }
+
+    @Test
     @DisplayName("Controller - Create specialist without specialist")
     void createSpecialist_Without_Specialist() {
-        BaseResponse res = this.restTemplate.postForObject(CREATE_SPECIALIST_URL, null, BaseResponse.class);
+        BaseResponse res = this.restTemplate.postForObject(POST_SPECIALIST_URL, null, BaseResponse.class);
         Assertions.assertEquals(DEFAULT_ERROR_MESSAGE, res.getError());
     }
 
@@ -68,7 +77,7 @@ class SpecialistControllerTest extends IntegrationTestConfig {
     @DisplayName("Controller - Create specialist without name")
     void createSpecialist_Without_Name() {
         BaseResponse res = this.restTemplate.postForObject(
-                CREATE_SPECIALIST_URL, SpecialistReq.builder().build(), BaseResponse.class);
+                POST_SPECIALIST_URL, SpecialistReq.builder().build(), BaseResponse.class);
         Assertions.assertEquals(REQUIRE_SPECIALIST_NAME, res.getError());
     }
 
@@ -78,7 +87,7 @@ class SpecialistControllerTest extends IntegrationTestConfig {
         SpecialistRes specialist = createSpecialist(createSpecialistRequest());
 
         BaseResponse res = this.restTemplate.postForObject(
-                CREATE_SPECIALIST_URL,
+                POST_SPECIALIST_URL,
                 SpecialistReq.builder().name(specialist.getName()).build(),
                 BaseResponse.class);
 
@@ -95,7 +104,7 @@ class SpecialistControllerTest extends IntegrationTestConfig {
         request.setName("New name");
 
         ResponseEntity<BaseResponse> res = this.restTemplate.exchange(
-                CREATE_SPECIALIST_URL, HttpMethod.PUT, new HttpEntity<>(request), BaseResponse.class);
+                POST_SPECIALIST_URL, HttpMethod.PUT, new HttpEntity<>(request), BaseResponse.class);
 
         SpecialistRes saved =
                 objectMapper.convertValue(Objects.requireNonNull(res.getBody()).getData(), SpecialistRes.class);
@@ -108,7 +117,7 @@ class SpecialistControllerTest extends IntegrationTestConfig {
     void updateSpecialist_Without_Id() {
         SpecialistReq request = createSpecialistRequest();
         ResponseEntity<BaseResponse> res = this.restTemplate.exchange(
-                CREATE_SPECIALIST_URL, HttpMethod.PUT, new HttpEntity<>(request), BaseResponse.class);
+                POST_SPECIALIST_URL, HttpMethod.PUT, new HttpEntity<>(request), BaseResponse.class);
 
         Assertions.assertEquals(
                 REQUIRE_SPECIALIST_ID, Objects.requireNonNull(res.getBody()).getError());
@@ -121,7 +130,7 @@ class SpecialistControllerTest extends IntegrationTestConfig {
         request.setId("999999999");
 
         ResponseEntity<BaseResponse> res = this.restTemplate.exchange(
-                CREATE_SPECIALIST_URL, HttpMethod.PUT, new HttpEntity<>(request), BaseResponse.class);
+                POST_SPECIALIST_URL, HttpMethod.PUT, new HttpEntity<>(request), BaseResponse.class);
 
         Assertions.assertEquals(
                 NOTFOUND_SPECIALIST, Objects.requireNonNull(res.getBody()).getError());
@@ -135,11 +144,11 @@ class SpecialistControllerTest extends IntegrationTestConfig {
         createSpecialist(createSpecialistRequest());
         createSpecialist(createSpecialistRequest());
 
-        List<SpecialistRes> specialties = getSpecialties(0, 2);
+        List<SpecialistRes> specialties = getSpecialists(0, 2);
         Assertions.assertNotNull(specialties);
         Assertions.assertEquals(2, specialties.size());
 
-        List<SpecialistRes> nextSpecialties = getSpecialties(1, 2);
+        List<SpecialistRes> nextSpecialties = getSpecialists(1, 2);
         Assertions.assertNotNull(nextSpecialties);
         Assertions.assertEquals(2, nextSpecialties.size());
 

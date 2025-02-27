@@ -1,16 +1,20 @@
 package edward.duong.hospital_mgmt.security;
 
-import edward.duong.hospital_mgmt.BaseWebTestConfig;
+import edward.duong.hospital_mgmt.IntegrationTestConfig;
 import edward.duong.hospital_mgmt.controller.models.AuthResponse;
 import edward.duong.hospital_mgmt.controller.models.BaseResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 
-class SecurityTest extends BaseWebTestConfig {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
+class SecurityTest extends IntegrationTestConfig {
     @Autowired
     private TestRestTemplate restTemplate;
 

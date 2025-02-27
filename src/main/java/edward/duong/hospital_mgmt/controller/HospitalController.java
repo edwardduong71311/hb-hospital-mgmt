@@ -1,17 +1,16 @@
 package edward.duong.hospital_mgmt.controller;
 
 import edward.duong.hospital_mgmt.controller.mapper.HospitalMapper;
-import edward.duong.hospital_mgmt.controller.models.hospital.HospitalReq;
-import edward.duong.hospital_mgmt.controller.models.hospital.HospitalRes;
+import edward.duong.hospital_mgmt.controller.models.hospital.*;
 import edward.duong.hospital_mgmt.domain.models.Pagination;
 import edward.duong.hospital_mgmt.service.HospitalService;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/hospitals")
-@Slf4j
 public class HospitalController {
     private final HospitalService hospitalService;
 

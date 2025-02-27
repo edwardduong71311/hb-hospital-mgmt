@@ -3,8 +3,7 @@ package edward.duong.hospital_mgmt.controller;
 import static edward.duong.hospital_mgmt.config.advice.ExceptionAdvice.DEFAULT_ERROR_MESSAGE;
 import static edward.duong.hospital_mgmt.domain.exceptions.ExceptionConstant.*;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import edward.duong.hospital_mgmt.IntegrationTestConfig;
+import edward.duong.hospital_mgmt.BaseWebTestConfig;
 import edward.duong.hospital_mgmt.controller.models.BaseResponse;
 import edward.duong.hospital_mgmt.controller.models.specialty.SpecialtyReq;
 import edward.duong.hospital_mgmt.controller.models.specialty.SpecialtyRes;
@@ -14,40 +13,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @Slf4j
-class SpecialtyControllerTest extends IntegrationTestConfig {
-    @Autowired
-    private TestRestTemplate restTemplate;
-
-    private static final String CREATE_SPECIALTY_URL = "/specialties";
-    private static final String GET_SPECIALTY_URL = "/specialties?page=%d&size=%d";
-    private static final String SPECIALTY_BY_ID_URL = "/specialties/%s";
-
-    private SpecialtyReq createSpecialtyRequest() {
-        return SpecialtyReq.builder()
-                .name("Test specialty " + random.nextDouble())
-                .description("Description " + random.nextDouble())
-                .build();
-    }
-
-    private SpecialtyRes createSpecialty(SpecialtyReq req) {
-        BaseResponse res = this.restTemplate.postForObject(CREATE_SPECIALTY_URL, req, BaseResponse.class);
-        return objectMapper.convertValue(res.getData(), SpecialtyRes.class);
-    }
-
-    private List<SpecialtyRes> getSpecialties(Integer page, Integer size) {
-        BaseResponse res =
-                this.restTemplate.getForObject(String.format(GET_SPECIALTY_URL, page, size), BaseResponse.class);
-        return objectMapper.convertValue(res.getData(), new TypeReference<List<SpecialtyRes>>() {});
-    }
-
+class SpecialtyControllerTest extends BaseWebTestConfig {
     @Test
     @DisplayName("Controller - Create specialty success")
     void createSpecialty_Success() {
@@ -61,7 +33,7 @@ class SpecialtyControllerTest extends IntegrationTestConfig {
     @Test
     @DisplayName("Controller - Create specialty without specialty")
     void createSpecialty_Without_Specialty() {
-        BaseResponse res = this.restTemplate.postForObject(CREATE_SPECIALTY_URL, null, BaseResponse.class);
+        BaseResponse res = this.restTemplate.postForObject(POST_SPECIALTY_URL, null, BaseResponse.class);
         Assertions.assertEquals(DEFAULT_ERROR_MESSAGE, res.getError());
     }
 
@@ -69,7 +41,7 @@ class SpecialtyControllerTest extends IntegrationTestConfig {
     @DisplayName("Controller - Create specialty without name")
     void createSpecialty_Without_Name() {
         BaseResponse res = this.restTemplate.postForObject(
-                CREATE_SPECIALTY_URL,
+                POST_SPECIALTY_URL,
                 SpecialtyReq.builder().description("Description").build(),
                 BaseResponse.class);
         Assertions.assertEquals(REQUIRE_SPECIALTY_NAME, res.getError());
@@ -81,7 +53,7 @@ class SpecialtyControllerTest extends IntegrationTestConfig {
         SpecialtyRes specialty = createSpecialty(createSpecialtyRequest());
 
         BaseResponse res = this.restTemplate.postForObject(
-                CREATE_SPECIALTY_URL,
+                POST_SPECIALTY_URL,
                 SpecialtyReq.builder()
                         .name(specialty.getName())
                         .description(specialty.getDescription())
@@ -102,7 +74,7 @@ class SpecialtyControllerTest extends IntegrationTestConfig {
         request.setDescription("New description");
 
         ResponseEntity<BaseResponse> res = this.restTemplate.exchange(
-                CREATE_SPECIALTY_URL, HttpMethod.PUT, new HttpEntity<>(request), BaseResponse.class);
+                POST_SPECIALTY_URL, HttpMethod.PUT, new HttpEntity<>(request), BaseResponse.class);
 
         SpecialtyRes saved =
                 objectMapper.convertValue(Objects.requireNonNull(res.getBody()).getData(), SpecialtyRes.class);
@@ -116,7 +88,7 @@ class SpecialtyControllerTest extends IntegrationTestConfig {
     void updateSpecialty_Without_Id() {
         SpecialtyReq request = createSpecialtyRequest();
         ResponseEntity<BaseResponse> res = this.restTemplate.exchange(
-                CREATE_SPECIALTY_URL, HttpMethod.PUT, new HttpEntity<>(request), BaseResponse.class);
+                POST_SPECIALTY_URL, HttpMethod.PUT, new HttpEntity<>(request), BaseResponse.class);
 
         Assertions.assertEquals(
                 REQUIRE_SPECIALTY_ID, Objects.requireNonNull(res.getBody()).getError());
@@ -129,7 +101,7 @@ class SpecialtyControllerTest extends IntegrationTestConfig {
         request.setId("999999999");
 
         ResponseEntity<BaseResponse> res = this.restTemplate.exchange(
-                CREATE_SPECIALTY_URL, HttpMethod.PUT, new HttpEntity<>(request), BaseResponse.class);
+                POST_SPECIALTY_URL, HttpMethod.PUT, new HttpEntity<>(request), BaseResponse.class);
 
         Assertions.assertEquals(
                 NOTFOUND_SPECIALTY, Objects.requireNonNull(res.getBody()).getError());

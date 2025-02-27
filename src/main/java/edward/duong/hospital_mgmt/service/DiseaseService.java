@@ -1,8 +1,8 @@
 package edward.duong.hospital_mgmt.service;
 
 import edward.duong.hospital_mgmt.domain.input_ports.DiseaseUseCase;
-import edward.duong.hospital_mgmt.domain.models.Disease;
 import edward.duong.hospital_mgmt.domain.models.Pagination;
+import edward.duong.hospital_mgmt.domain.models.spec.Disease;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

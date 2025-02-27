@@ -28,15 +28,12 @@ Before starting, make sure you have the following installed:
 
 ### Test
 ```bash
-    mvn test "-Dspring.profiles.active=mongo"
-    mvn test "-Dspring.profiles.active=postgres"
+    mvn test
 ```
 
 ### Generate Report
 ```bash
     mvn clean
-    mvn test "-Dspring.profiles.active=mongo"
-    mvn test "-Dspring.profiles.active=postgres"
     mvn verify # Throw when coverage does not meet expectation
     mvn jacoco:report
 ```

@@ -2,7 +2,7 @@ package edward.duong.hospital_mgmt.service;
 
 import edward.duong.hospital_mgmt.domain.input_ports.SpecialtyUseCase;
 import edward.duong.hospital_mgmt.domain.models.Pagination;
-import edward.duong.hospital_mgmt.domain.models.Specialty;
+import edward.duong.hospital_mgmt.domain.models.spec.Specialty;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

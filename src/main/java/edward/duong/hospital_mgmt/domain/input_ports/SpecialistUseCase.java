@@ -1,7 +1,7 @@
 package edward.duong.hospital_mgmt.domain.input_ports;
 
 import edward.duong.hospital_mgmt.domain.models.Pagination;
-import edward.duong.hospital_mgmt.domain.models.Specialist;
+import edward.duong.hospital_mgmt.domain.models.spec.Specialist;
 import java.util.List;
 
 public interface SpecialistUseCase {

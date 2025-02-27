@@ -1,8 +1,7 @@
 package edward.duong.hospital_mgmt.controller.mapper;
 
-import edward.duong.hospital_mgmt.controller.models.hospital.HospitalReq;
-import edward.duong.hospital_mgmt.controller.models.hospital.HospitalRes;
-import edward.duong.hospital_mgmt.domain.models.Hospital;
+import edward.duong.hospital_mgmt.controller.models.hospital.*;
+import edward.duong.hospital_mgmt.domain.models.hospital.Hospital;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -19,6 +18,7 @@ public interface HospitalMapper {
     @Mapping(source = "telephone", target = "telephone")
     @Mapping(source = "location.longitude", target = "longitude")
     @Mapping(source = "location.latitude", target = "latitude")
+    @Mapping(source = "specialists", target = "specialists")
     HospitalRes toResponse(Hospital hospital);
 
     @Mapping(source = "id", target = "id")
@@ -27,6 +27,7 @@ public interface HospitalMapper {
     @Mapping(source = "telephone", target = "telephone")
     @Mapping(source = "longitude", target = "location.longitude")
     @Mapping(source = "latitude", target = "location.latitude")
+    @Mapping(source = "specialists", target = "specialists")
     Hospital toModel(HospitalReq hospital);
 
     List<HospitalRes> toResponseList(List<Hospital> hospital);

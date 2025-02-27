@@ -9,6 +9,7 @@ public class ExceptionConstant {
     public static final String REQUIRE_HOSPITAL_LOCATION = "Hospital location must not be null";
     public static final String DUPLICATE_HOSPITAL = "Hospital name and location existed";
     public static final String NOTFOUND_HOSPITAL = "Hospital not found";
+    public static final String NOTFOUND_SCHEDULE = "Schedule not found";
 
     public static final String REQUIRE_SPECIALTY = "Specialty must not be null";
     public static final String REQUIRE_SPECIALTY_NAME = "Specialty name must not be null";

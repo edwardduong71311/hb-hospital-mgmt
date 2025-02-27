@@ -1,8 +1,9 @@
 package edward.duong.hospital_mgmt.persistent.mapper;
 
-import edward.duong.hospital_mgmt.domain.models.Disease;
-import edward.duong.hospital_mgmt.persistent.mongo.items.DiseaseDocument;
+import edward.duong.hospital_mgmt.domain.models.spec.Disease;
+import edward.duong.hospital_mgmt.domain.models.spec.Specialty;
 import edward.duong.hospital_mgmt.persistent.postgre.entity.DiseaseEntity;
+import edward.duong.hospital_mgmt.persistent.postgre.entity.DiseaseSpecialtyEntity;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,20 +18,7 @@ public interface DiseaseMapper {
     @Mapping(source = "status", target = "status")
     @Mapping(source = "symptom", target = "symptom")
     @Mapping(source = "treatment", target = "treatment")
-    Disease toModel(DiseaseDocument a);
-
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
-    @Mapping(source = "status", target = "status")
-    @Mapping(source = "symptom", target = "symptom")
-    @Mapping(source = "treatment", target = "treatment")
-    DiseaseDocument toDocument(Disease a);
-
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
-    @Mapping(source = "status", target = "status")
-    @Mapping(source = "symptom", target = "symptom")
-    @Mapping(source = "treatment", target = "treatment")
+    @Mapping(source = "specialties", target = "specialties")
     Disease toModel(DiseaseEntity a);
 
     @Mapping(target = "id", ignore = true)
@@ -47,7 +35,11 @@ public interface DiseaseMapper {
     @Mapping(source = "treatment", target = "treatment")
     DiseaseEntity toUpdateEntity(Disease a);
 
-    List<Disease> documentToModels(List<DiseaseDocument> a);
+    @Mapping(source = "specialty.id", target = "id")
+    @Mapping(source = "specialty.name", target = "name")
+    @Mapping(source = "specialty.status", target = "status")
+    @Mapping(source = "specialty.description", target = "description")
+    Specialty toModel(DiseaseSpecialtyEntity a);
 
     List<Disease> entityToModels(List<DiseaseEntity> a);
 }

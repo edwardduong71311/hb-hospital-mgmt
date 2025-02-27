@@ -1,8 +1,9 @@
 package edward.duong.hospital_mgmt.persistent.mapper;
 
-import edward.duong.hospital_mgmt.domain.models.Specialist;
-import edward.duong.hospital_mgmt.persistent.mongo.items.SpecialistDocument;
+import edward.duong.hospital_mgmt.domain.models.spec.Specialist;
+import edward.duong.hospital_mgmt.domain.models.spec.Specialty;
 import edward.duong.hospital_mgmt.persistent.postgre.entity.SpecialistEntity;
+import edward.duong.hospital_mgmt.persistent.postgre.entity.SpecialistSpecialtyEntity;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,16 +16,7 @@ public interface SpecialistMapper {
     @Mapping(source = "id", target = "id")
     @Mapping(source = "name", target = "name")
     @Mapping(source = "status", target = "status")
-    Specialist toModel(SpecialistDocument a);
-
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
-    @Mapping(source = "status", target = "status")
-    SpecialistDocument toDocument(Specialist a);
-
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
-    @Mapping(source = "status", target = "status")
+    @Mapping(source = "specialties", target = "specialties")
     Specialist toModel(SpecialistEntity a);
 
     @Mapping(target = "id", ignore = true)
@@ -37,7 +29,11 @@ public interface SpecialistMapper {
     @Mapping(source = "status", target = "status")
     SpecialistEntity toUpdateEntity(Specialist a);
 
-    List<Specialist> documentToModels(List<SpecialistDocument> a);
+    @Mapping(source = "specialty.id", target = "id")
+    @Mapping(source = "specialty.name", target = "name")
+    @Mapping(source = "specialty.status", target = "status")
+    @Mapping(source = "specialty.description", target = "description")
+    Specialty toModel(SpecialistSpecialtyEntity a);
 
     List<Specialist> entityToModels(List<SpecialistEntity> a);
 }
