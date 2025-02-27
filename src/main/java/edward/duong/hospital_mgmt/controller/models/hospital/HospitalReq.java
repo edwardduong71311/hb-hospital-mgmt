@@ -1,5 +1,7 @@
 package edward.duong.hospital_mgmt.controller.models.hospital;
 
+import edward.duong.hospital_mgmt.controller.models.specialist.SpecialistReq;
+import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,4 +15,5 @@ public class HospitalReq {
     private String telephone;
     private Double longitude;
     private Double latitude;
+    private List<SpecialistReq> specialists;
 }

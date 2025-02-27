@@ -1,7 +1,7 @@
 package edward.duong.hospital_mgmt.domain.input_ports;
 
-import edward.duong.hospital_mgmt.domain.models.Hospital;
 import edward.duong.hospital_mgmt.domain.models.Pagination;
+import edward.duong.hospital_mgmt.domain.models.hospital.Hospital;
 import java.util.List;
 
 public interface HospitalUseCase {
@@ -14,4 +14,6 @@ public interface HospitalUseCase {
     Hospital updateHospital(Hospital hospital);
 
     void deleteHospital(String id);
+
+    void isHospitalExist(String id);
 }

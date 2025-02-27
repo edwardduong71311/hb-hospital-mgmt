@@ -9,8 +9,6 @@ app:
   auth:
     key: ${AUTH_KEY:5367566B59703373367639792F423F4528482B4D6251655468576D5A71347440}
     exp: ${AUTH_EXP:3600} # Default expire after 1 hour
-  feature:
-    database: postgres # mongo, postgres
   integration:
     health_buddy_be:
       url: ${HEALTH_BUDDY_BE:http://localhost:3000}
@@ -18,15 +16,15 @@ app:
 spring:
   application:
     name: hospital-mgmt
-  data:
-    mongodb:
-      uri: ${MONGO_URL:mongodb://mongoadmin:secret@localhost:27017/health_buddy?authSource=admin}
   mvc:
     log-request-details: true
   datasource:
-    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/health_buddy}
-    username: ${POSTGRES_USERNAME:admin}
-    password: ${POSTGRES_PASSWORD:secret}
+    url: ${POSTGRES_URL:}
+    username: ${POSTGRES_USERNAME:}
+    password: ${POSTGRES_PASSWORD:}
+#    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/health_buddy}
+#    username: ${POSTGRES_USERNAME:admin}
+#    password: ${POSTGRES_PASSWORD:secret}
     driver-class-name: org.postgresql.Driver
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.xml

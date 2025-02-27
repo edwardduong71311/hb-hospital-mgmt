@@ -22,7 +22,18 @@ public class ScheduleEntity {
     private LocalDateTime date;
     private LocalTime fromTime;
     private LocalTime toTime;
-    private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "hospital")
+    private HospitalEntity hospital;
+
+    @ManyToOne
+    @JoinColumn(name = "specialist")
+    private SpecialistEntity specialist;
+
+    @ManyToOne
+    @JoinColumn(name = "appointment")
+    private AppointmentEntity appointment;
 
     @CreatedDate
     private LocalDateTime createdAt;

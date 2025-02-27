@@ -1,8 +1,8 @@
 package edward.duong.hospital_mgmt.domain.output_ports;
 
-import edward.duong.hospital_mgmt.domain.models.Hospital;
-import edward.duong.hospital_mgmt.domain.models.HospitalCriteria;
-import edward.duong.hospital_mgmt.domain.models.Pagination;
+import edward.duong.hospital_mgmt.domain.models.*;
+import edward.duong.hospital_mgmt.domain.models.hospital.Hospital;
+import edward.duong.hospital_mgmt.domain.models.hospital.HospitalCriteria;
 import java.util.List;
 
 public interface HospitalPersistent {

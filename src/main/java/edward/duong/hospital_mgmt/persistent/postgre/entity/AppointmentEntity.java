@@ -2,7 +2,6 @@ package edward.duong.hospital_mgmt.persistent.postgre.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,9 +19,6 @@ public class AppointmentEntity {
     private Long id;
 
     private String patient;
-    private String status;
-    private LocalTime fromTime;
-    private LocalTime toTime;
 
     @CreatedDate
     private LocalDateTime createdAt;

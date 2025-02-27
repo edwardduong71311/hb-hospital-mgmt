@@ -1,12 +1,14 @@
 package edward.duong.hospital_mgmt.utility;
 
-import edward.duong.hospital_mgmt.BaseUnitTestConfig;
+import edward.duong.hospital_mgmt.IntegrationTestConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-class JwtUtilTest extends BaseUnitTestConfig {
+@SpringBootTest
+class JwtUtilTest extends IntegrationTestConfig {
     @Autowired
     private JwtUtil jwtUtil;
 

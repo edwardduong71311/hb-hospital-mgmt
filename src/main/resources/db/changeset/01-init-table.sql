@@ -40,18 +40,21 @@ CREATE TABLE hospital (
 );
 
 CREATE TABLE specialist_specialty (
+    id SERIAL PRIMARY KEY,
     specialist INTEGER REFERENCES specialist(id),
     specialty INTEGER REFERENCES specialty(id),
     UNIQUE (specialist, specialty)
 );
 
 CREATE TABLE disease_specialty (
+    id SERIAL PRIMARY KEY,
     disease   INTEGER REFERENCES disease(id),
     specialty INTEGER REFERENCES specialty(id),
     UNIQUE (disease, specialty)
 );
 
 CREATE TABLE hospital_specialist (
+    id SERIAL PRIMARY KEY,
     hospital INTEGER REFERENCES hospital(id),
     specialist INTEGER REFERENCES specialist(id),
     UNIQUE (hospital, specialist)
@@ -59,11 +62,7 @@ CREATE TABLE hospital_specialist (
 
 CREATE TABLE appointment (
     id SERIAL PRIMARY KEY,
-    status VARCHAR(255),
     patient VARCHAR(255),
-    specialist INTEGER REFERENCES specialist(id),
-    from_time TIME,
-    to_time TIME,
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );
@@ -71,12 +70,11 @@ CREATE TABLE appointment (
 CREATE TABLE schedule (
     id SERIAL PRIMARY KEY,
     hospital INTEGER REFERENCES hospital(id),
+    specialist INTEGER REFERENCES specialist(id),
     appointment INTEGER REFERENCES appointment(id),
     date TIMESTAMP,
     from_time TIME,
     to_time TIME,
-    description TEXT,
     created_at TIMESTAMP,
-    updated_at TIMESTAMP,
-    UNIQUE (hospital, appointment)
+    updated_at TIMESTAMP
 );
