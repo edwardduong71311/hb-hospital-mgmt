@@ -24,9 +24,11 @@ public class SpecialtyPersistent implements edward.duong.hospital_mgmt.domain.ou
     }
 
     @Override
-    public List<Specialty> getSpecialties(Pagination pagination) {
+    public List<Specialty> getSpecialties(SpecialtyCriteria criteria, Pagination pagination) {
+        Specification<SpecialtyEntity> spec = SpecialtySpecification.filterByCriteria(criteria);
+
         Page<SpecialtyEntity> specialties =
-                repo.findAll(Pageable.ofSize(pagination.getSize()).withPage(pagination.getPage()));
+                repo.findAll(spec, Pageable.ofSize(pagination.getSize()).withPage(pagination.getPage()));
         return SpecialtyMapper.INSTANCE.entityToModels(specialties.getContent());
     }
 

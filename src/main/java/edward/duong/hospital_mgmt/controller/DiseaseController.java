@@ -18,7 +18,7 @@ public class DiseaseController {
     }
 
     @GetMapping
-    public List<DiseaseRes> getSpecialties(@RequestParam("page") Integer page, @RequestParam("size") Integer size) {
+    public List<DiseaseRes> getDiseases(@RequestParam("page") Integer page, @RequestParam("size") Integer size) {
         page = page < 0 ? 0 : page;
         size = size < 0 ? 10 : size;
 
@@ -27,17 +27,17 @@ public class DiseaseController {
     }
 
     @PostMapping
-    public DiseaseRes createSpecialty(@RequestBody DiseaseReq req) {
+    public DiseaseRes createDisease(@RequestBody DiseaseReq req) {
         return DiseaseMapper.INSTANCE.toResponse(diseaseService.createDisease(DiseaseMapper.INSTANCE.toModel(req)));
     }
 
     @PutMapping
-    public DiseaseRes updateSpecialty(@RequestBody DiseaseReq req) {
+    public DiseaseRes updateDisease(@RequestBody DiseaseReq req) {
         return DiseaseMapper.INSTANCE.toResponse(diseaseService.updateDisease(DiseaseMapper.INSTANCE.toModel(req)));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteSpecialty(@PathVariable String id) {
+    public void deleteDisease(@PathVariable String id) {
         diseaseService.deleteDisease(id);
     }
 }
