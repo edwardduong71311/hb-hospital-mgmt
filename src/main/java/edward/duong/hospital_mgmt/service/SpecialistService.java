@@ -4,6 +4,8 @@ import edward.duong.hospital_mgmt.domain.input_ports.SpecialistUseCase;
 import edward.duong.hospital_mgmt.domain.models.Pagination;
 import edward.duong.hospital_mgmt.domain.models.spec.Specialist;
 import java.util.List;
+
+import edward.duong.hospital_mgmt.domain.models.spec.SpecialistCriteria;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +18,8 @@ public class SpecialistService {
         this.specialistUseCase = specialistUseCase;
     }
 
-    public List<Specialist> getSpecialists(Pagination pagination) {
-        return specialistUseCase.getSpecialists(pagination);
+    public List<Specialist> getSpecialists(SpecialistCriteria criteria, Pagination pagination) {
+        return specialistUseCase.getSpecialists(criteria, pagination);
     }
 
     public Specialist createSpecialist(Specialist specialist) {

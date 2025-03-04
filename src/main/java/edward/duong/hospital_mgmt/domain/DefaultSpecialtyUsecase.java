@@ -28,8 +28,8 @@ public class DefaultSpecialtyUsecase implements SpecialtyUseCase {
     }
 
     @Override
-    public List<Specialty> getSpecialties(Pagination pagination) {
-        return persistent.getSpecialties(pagination);
+    public List<Specialty> getSpecialties(SpecialtyCriteria criteria, Pagination pagination) {
+        return persistent.getSpecialties(criteria, pagination);
     }
 
     @Override

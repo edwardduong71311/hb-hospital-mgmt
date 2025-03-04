@@ -3,7 +3,7 @@ server:
 
 app:
   cors:
-    origin: http://localhost:3000
+    origin: http://localhost:4200
     method: GET,POST,PUT,DELETE,OPTIONS
     header: "*"
   auth:
@@ -19,12 +19,9 @@ spring:
   mvc:
     log-request-details: true
   datasource:
-    url: ${POSTGRES_URL:}
-    username: ${POSTGRES_USERNAME:}
-    password: ${POSTGRES_PASSWORD:}
-#    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/health_buddy}
-#    username: ${POSTGRES_USERNAME:admin}
-#    password: ${POSTGRES_PASSWORD:secret}
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/health_buddy}
+    username: ${POSTGRES_USERNAME:admin}
+    password: ${POSTGRES_PASSWORD:secret}
     driver-class-name: org.postgresql.Driver
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.xml

@@ -6,7 +6,7 @@ import edward.duong.hospital_mgmt.domain.models.spec.SpecialistCriteria;
 import java.util.List;
 
 public interface SpecialistPersistent {
-    List<Specialist> getSpecialists(Pagination pagination);
+    List<Specialist> getSpecialists(SpecialistCriteria criteria, Pagination pagination);
 
     Specialist getSpecialistByCriteria(SpecialistCriteria criteria);
 

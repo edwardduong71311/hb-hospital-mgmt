@@ -20,7 +20,7 @@ public class SpecialistSpecification {
                 predicates.add(cb.equal(root.get("id"), criteria.getId()));
             }
             if (Objects.nonNull(criteria.getName())) {
-                predicates.add(cb.equal(root.get("name"), criteria.getName()));
+                predicates.add(cb.like(root.get("name"), criteria.getName()));
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));

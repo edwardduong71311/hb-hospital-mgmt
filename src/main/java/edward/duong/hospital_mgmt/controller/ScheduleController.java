@@ -24,7 +24,7 @@ public class ScheduleController {
     }
 
     @GetMapping
-    public List<ScheduleRes> getHospitals(
+    public List<ScheduleRes> getSchedules(
             @RequestParam("page") Integer page,
             @RequestParam("size") Integer size,
             @RequestParam(value = "id", required = false) String id,
