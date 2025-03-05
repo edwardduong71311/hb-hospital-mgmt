@@ -106,23 +106,6 @@ class HospitalControllerTest extends BaseWebTestConfig {
     }
 
     @Test
-    @DisplayName("Controller - Create duplicated hospital")
-    void createHospital_Duplicated() {
-        HospitalRes hospital = createHospital(createHospitalRequest());
-
-        BaseResponse res = this.restTemplate.postForObject(
-                POST_HOSPITAL_URL,
-                HospitalReq.builder()
-                        .name(hospital.getName())
-                        .latitude(hospital.getLatitude())
-                        .longitude(hospital.getLongitude())
-                        .build(),
-                BaseResponse.class);
-
-        Assertions.assertEquals(DUPLICATE_HOSPITAL, res.getError());
-    }
-
-    @Test
     @DisplayName("Controller - Update hospital success")
     void updateHospital_Success() {
         HospitalReq request = createHospitalRequest();

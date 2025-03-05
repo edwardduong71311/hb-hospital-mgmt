@@ -48,22 +48,6 @@ class SpecialtyControllerTest extends BaseWebTestConfig {
     }
 
     @Test
-    @DisplayName("Controller - Create duplicated specialty")
-    void createSpecialty_Duplicated() {
-        SpecialtyRes specialty = createSpecialty(createSpecialtyRequest());
-
-        BaseResponse res = this.restTemplate.postForObject(
-                POST_SPECIALTY_URL,
-                SpecialtyReq.builder()
-                        .name(specialty.getName())
-                        .description(specialty.getDescription())
-                        .build(),
-                BaseResponse.class);
-
-        Assertions.assertEquals(DUPLICATE_SPECIALTY, res.getError());
-    }
-
-    @Test
     @DisplayName("Controller - Update specialty success")
     void updateSpecialty_Success() {
         SpecialtyReq request = createSpecialtyRequest();

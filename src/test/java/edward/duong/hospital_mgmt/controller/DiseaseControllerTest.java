@@ -82,17 +82,6 @@ class DiseaseControllerTest extends BaseWebTestConfig {
     }
 
     @Test
-    @DisplayName("Controller - Create duplicated disease")
-    void createDisease_Duplicated() {
-        DiseaseRes disease = createDisease(createDiseaseRequest());
-
-        BaseResponse res = this.restTemplate.postForObject(
-                POST_DISEASE_URL, DiseaseReq.builder().name(disease.getName()).build(), BaseResponse.class);
-
-        Assertions.assertEquals(DUPLICATE_DISEASE, res.getError());
-    }
-
-    @Test
     @DisplayName("Controller - Update disease success")
     void updateDisease_Success() {
         DiseaseReq request = createDiseaseRequest();

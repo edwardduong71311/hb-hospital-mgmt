@@ -52,7 +52,7 @@ public class DefaultHospitalUsecase implements HospitalUseCase {
                 .location(hospital.getLocation())
                 .build());
         if (Objects.nonNull(saved)) {
-            throw new IllegalArgumentException(DUPLICATE_HOSPITAL);
+            return saved;
         }
 
         hospital.setStatus(HospitalStatus.ACTIVE.name());

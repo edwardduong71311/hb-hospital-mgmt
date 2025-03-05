@@ -39,7 +39,7 @@ public class DefaultDiseaseUsecase implements DiseaseUseCase {
         Disease saved = persistent.getDiseaseByCriteria(
                 DiseaseCriteria.builder().name(disease.getName()).build());
         if (Objects.nonNull(saved)) {
-            throw new IllegalArgumentException(DUPLICATE_DISEASE);
+            return saved;
         }
 
         disease.setStatus(DiseaseStatus.ACTIVE.name());
