@@ -82,19 +82,6 @@ class SpecialistControllerTest extends BaseWebTestConfig {
     }
 
     @Test
-    @DisplayName("Controller - Create duplicated specialist")
-    void createSpecialist_Duplicated() {
-        SpecialistRes specialist = createSpecialist(createSpecialistRequest());
-
-        BaseResponse res = this.restTemplate.postForObject(
-                POST_SPECIALIST_URL,
-                SpecialistReq.builder().name(specialist.getName()).build(),
-                BaseResponse.class);
-
-        Assertions.assertEquals(DUPLICATE_SPECIALIST, res.getError());
-    }
-
-    @Test
     @DisplayName("Controller - Update specialist success")
     void updateSpecialist_Success() {
         SpecialistReq request = createSpecialistRequest();

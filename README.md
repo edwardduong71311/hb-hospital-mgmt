@@ -5,7 +5,6 @@
 Welcome to the Spring Boot Project! This repository contains a Spring Boot application with configurations for:
 
 - **Code formatting** with **Spotless**.
-- **Running tests** using different Spring profiles (`mongo` and `postgres`).
 - **Generating code coverage reports** with **Jacoco**.
 
 ## Getting Started

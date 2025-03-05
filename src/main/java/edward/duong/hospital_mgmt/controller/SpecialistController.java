@@ -22,15 +22,12 @@ public class SpecialistController {
     public List<SpecialistRes> getSpecialists(
             @RequestParam("page") Integer page,
             @RequestParam("size") Integer size,
-            @RequestParam(value = "name", required = false) String name
-    ) {
+            @RequestParam(value = "name", required = false) String name) {
         Pagination pagination = Pagination.builder()
                 .page(page < 0 ? 0 : page)
                 .size(size < 0 ? 10 : size)
                 .build();
-        SpecialistCriteria criteria = SpecialistCriteria.builder()
-                .name(name)
-                .build();
+        SpecialistCriteria criteria = SpecialistCriteria.builder().name(name).build();
 
         return SpecialistMapper.INSTANCE.toResponseList(specialistService.getSpecialists(criteria, pagination));
     }

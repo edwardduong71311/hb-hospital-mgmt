@@ -39,7 +39,7 @@ public class DefaultSpecialtyUsecase implements SpecialtyUseCase {
         Specialty saved = persistent.getSpecialtyByCriteria(
                 SpecialtyCriteria.builder().name(spec.getName()).build());
         if (Objects.nonNull(saved)) {
-            throw new IllegalArgumentException(DUPLICATE_SPECIALTY);
+            return saved;
         }
 
         spec.setStatus(SpecialtyStatus.ACTIVE.name());

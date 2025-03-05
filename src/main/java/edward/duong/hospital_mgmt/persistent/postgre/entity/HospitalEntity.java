@@ -12,12 +12,14 @@ import lombok.NoArgsConstructor;
 import org.locationtech.jts.geom.Point;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
 @Table(name = "hospital")
+@EntityListeners(AuditingEntityListener.class)
 public class HospitalEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

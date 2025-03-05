@@ -39,7 +39,7 @@ public class DefaultSpecialistUsecase implements SpecialistUseCase {
         Specialist saved = persistent.getSpecialistByCriteria(
                 SpecialistCriteria.builder().name(spec.getName()).build());
         if (Objects.nonNull(saved)) {
-            throw new IllegalArgumentException(DUPLICATE_SPECIALIST);
+            return saved;
         }
 
         spec.setStatus(SpecialistStatus.ACTIVE.name());

@@ -22,15 +22,12 @@ public class SpecialtyController {
     public List<SpecialtyRes> getSpecialties(
             @RequestParam("page") Integer page,
             @RequestParam("size") Integer size,
-            @RequestParam(value = "name", required = false) String name
-    ) {
+            @RequestParam(value = "name", required = false) String name) {
         Pagination pagination = Pagination.builder()
                 .page(page < 0 ? 0 : page)
                 .size(size < 0 ? 10 : size)
                 .build();
-        SpecialtyCriteria criteria = SpecialtyCriteria.builder()
-                .name(name)
-                .build();
+        SpecialtyCriteria criteria = SpecialtyCriteria.builder().name(name).build();
 
         return SpecialtyMapper.INSTANCE.toResponseList(specialtyService.getSpecialties(criteria, pagination));
     }
