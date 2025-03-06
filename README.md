@@ -1,38 +1,85 @@
-# Spring Boot Project
+# Hospital Management System
 
-## Read Me First
+## Description
 
-Welcome to the Spring Boot Project! This repository contains a Spring Boot application with configurations for:
+Hospital Management System is a Spring Boot application designed to manage hospital operations, including patient records, appointments, and medical staff.
 
-- **Code formatting** with **Spotless**.
-- **Generating code coverage reports** with **Jacoco**.
+## Requirements
 
-## Getting Started
+- Java 23
+- Maven
+- PostgreSQL (Runtime dependency)
 
-To get this project up and running locally, follow the steps below.
+## Installation
 
-### Prerequisites
+### Clone the Repository
 
-Before starting, make sure you have the following installed:
-
-- **Java 21** or newer
-- **Maven 3.x**
-- **Git**
-
-### Format Code
-```bash
-    mvn spotless:check # Throw error when fail
-    mvn spotless:apply
+```sh
+git clone <repository-url>
+cd hospital-mgmt
 ```
 
-### Test
-```bash
-    mvn test
+### Build the Project
+
+```sh
+mvn clean install
 ```
 
-### Generate Report
-```bash
-    mvn clean
-    mvn verify # Throw when coverage does not meet expectation
-    mvn jacoco:report
+### Run the Application
+
+```sh
+mvn spring-boot:run
 ```
+
+## Configuration
+
+### Database Configuration
+
+Ensure PostgreSQL is running and configure database properties in `application.properties` or `application.yml`.
+
+## Features
+
+- **Spring Boot Security**: Secure endpoints using Spring Security.
+- **Spring Data JPA**: Database interactions with JPA and Hibernate.
+- **Liquibase**: Database migration and versioning.
+- **JWT Authentication**: Secure authentication with JSON Web Tokens.
+- **Actuator Monitoring**: System health checks and monitoring.
+- **Tracing & Logging**: Integrated with Micrometer and Zipkin.
+
+## Dependencies
+
+This project includes key dependencies:
+
+- **Spring Boot Starters**: Web, Security, JPA, Actuator
+- **Liquibase**: Database migration
+- **JWT (JJWT)**: Authentication and authorization
+- **Micrometer & Zipkin**: Tracing and metrics
+- **PostgreSQL**: Database driver
+- **MapStruct**: Object mapping
+- **Lombok**: Reduce boilerplate code
+- **JUnit & Testcontainers**: Testing framework
+
+## Testing
+
+Run tests using:
+
+```sh
+mvn test
+```
+
+## Code Quality & Formatting
+
+- **Jacoco**: Code coverage analysis
+- **Spotless**: Code formatting with Palantir Java Format
+
+Run the following commands for code formatting:
+
+```sh
+mvn spotless:check  # Throw error when formatting fails
+mvn spotless:apply  # Auto-format code
+```
+
+## License
+
+This project is licensed under the MIT License.
+
