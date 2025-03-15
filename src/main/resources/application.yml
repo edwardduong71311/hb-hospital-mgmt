@@ -12,6 +12,14 @@ app:
   integration:
     health_buddy_be:
       url: ${HEALTH_BUDDY_BE:http://localhost:3000}
+  kafka:
+    url: http://localhost:9092
+    topics:
+      user-activity:
+        name: user-activity
+        partitions: 1
+        replication: 1
+        retention-ms: 86400000
 
 spring:
   application:
