@@ -12,16 +12,10 @@ app:
   integration:
     health_buddy_be:
       url: ${HEALTH_BUDDY_BE:http://localhost:3000}
-  kafka:
-    url: http://localhost:9092
-    topics:
-      user-activity:
-        name: user-activity
-        partitions: 1
-        replication: 1
-        retention-ms: 86400000
 
 spring:
+  profiles:
+    default: local
   application:
     name: hospital-mgmt
   mvc:
@@ -58,3 +52,13 @@ management:
       type: b3_multi
       produce: b3_multi
       consume: b3_multi
+
+cloud:
+  aws:
+    region: ${AWS_REGION:us-east-1}
+  sqs:
+    user-activity:
+      url: ${SQS_USER_ACTIVITY_URL:}
+  sns:
+    build-embedding:
+      url: ${SNS_BUILD_EMBEDDING_URL:}
