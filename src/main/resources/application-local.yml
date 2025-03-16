@@ -1,0 +1,10 @@
+cloud:
+  aws:
+    local-url: "http://localhost:4566"
+    region: us-east-1
+  sqs:
+    user-activity:
+      url: "http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/user-activity"
+  sns:
+    build-embedding:
+      url: "arn:aws:sns:us-east-1:000000000000:build-embedding"
