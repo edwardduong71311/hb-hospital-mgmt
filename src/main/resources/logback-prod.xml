@@ -1,0 +1,23 @@
+<configuration>
+    <!-- HTTP Appender to send logs to your server -->
+    <appender name="HTTP" class="edward.duong.hospital_mgmt.config.LogAppender">
+        <url>${ELASTIC_URL}</url>
+        <username>${ELASTIC_USR}</username>
+        <password>${ELASTIC_PASS}</password>
+    </appender>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <includeMdc>true</includeMdc>
+            <mdcKeyNames>
+                <mdcKeyName>traceId=trace.id</mdcKeyName>
+                <mdcKeyName>spanId=span.id</mdcKeyName>
+            </mdcKeyNames>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="HTTP" />
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>
